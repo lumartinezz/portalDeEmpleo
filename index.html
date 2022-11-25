@@ -4,9 +4,68 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Jobs</title>
 </head>
-<body>
+
+<body class="bg-slate-100">
+    <header>
+        <nav
+          class="lg:px-20 lg:h-20 h-20 bg-[#bef264] text-black flex justify-between items-center"
+        >
+          <a href="" class="flex text-4xl hover:text-3xl font-semibold p-4">
+           💻  Portal de Empleo
+          </a>
+
+          <div
+            class="lg:hidden flex items-center h-20 hover:bg-[#ab47bc] cursor-pointer px-4"
+            id="navReponsive"
+          >
+            <span class="" id="burguerMobile">
+              <i class="text-2xl text-lg fa-solid fa-bars"></i>
+            </span>
+  
+            <i class="hidden fa-solid fa-xmark" id="crussMobile"></i>
+          </div>
+          <div
+            class="hidden xmark hidden flex items-center h-20 hover:bg-[#ab47bc] cursor-pointer px-4"
+          >
+            <i class="md:text-2xl text-xl fa-solid fa-xmark"></i>
+          </div>
+
+          <ul class="lg:flex hidden justify-end items-center">
+            
+            <li>
+              <a
+                href="#"
+                name="navHome"
+                id="navHome"
+                class="group text-lg hover:text-xl hover:text-[#f3e5f5] cursor-pointer"
+              >
+                Inicio
+              </a>
+            </li>
+          
+
+            <li class="ml-5">
+            <a
+              href="#"
+              name="navNewJob"
+              id="navNewJob"
+              class="group text-lg hover:text-xl hover:text-[#f3e5f5] cursor-pointer"
+            >
+              Crear Empleo
+            </a>
+          </li>
+
+        </ul>
+        </nav>
     
 </body>
 </html>
