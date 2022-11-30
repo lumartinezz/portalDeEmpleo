@@ -4,9 +4,432 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Jobs</title>
 </head>
-<body>
+
+<body class="bg-slate-100">
+    <header>
+
+        <!-- section nav bar Menu-->
+
+        <nav
+          class="lg:px-20 lg:h-20 h-20 bg-[#bef264] text-black flex justify-between items-center"
+        >
+          <a href="" class="flex text-4xl hover:text-3xl font-semibold p-4">
+           💻  Portal de Empleo
+          </a>
+
+          <div
+            class="lg:hidden flex items-center h-20 hover:bg-[#f3e5f5] cursor-pointer px-4"
+            id="navReponsive"
+          >
+            <span class="" id="burguerMobile">
+              <i class="text-2xl text-lg fa-solid fa-bars"></i>
+            </span>
+  
+            <i class="hidden fa-solid fa-xmark" id="crussMobile"></i>
+          </div>
+          <div
+            class="hidden xmark hidden flex items-center h-20 hover:bg-[#f3e5f5] cursor-pointer px-4"
+          >
+            <i class="md:text-2xl text-xl fa-solid fa-xmark"></i>
+          </div>
+
+          <ul class="lg:flex hidden justify-end items-center">
+
+            <li>
+              <a
+                href="#"
+                name="navHome"
+                id="navHome"
+                class="group text-lg hover:text-xl hover:text-[#f3e5f5] cursor-pointer"
+              >
+                Inicio
+              </a>
+            </li>
+          
+
+            <li class="ml-5">
+            <a
+              href="#"
+              name="navNewJob"
+              id="navNewJob"
+              class="group text-lg hover:text-xl hover:text-[#f3e5f5] cursor-pointer"
+            >
+              Crear Empleo
+            </a>
+          </li>
+
+        </ul>
+        </nav>
+
+        <!-- section nav burguer menu-->
+      
+      <div class="lg:hidden " id="navBurguer">
+        <ul class="flex flex-col bg-[#bef264] text-white">
+          <li class="px-4 py-2 group hover:text-xl hover:bg-white cursor-pointer">
+            <a href="#" name="mobileHome" id="mobileHome" class="">
+             
+              Inicio
+              <span class="block max-w-0 hover:text-"></span>
+            </a>
+          </li>
+
+          <li class="px-4 py-2 text-lg group hover:text-xl hover:bg-white cursor-pointer">
+            <a
+              href="#"
+              name="mobileNewJob"
+              id="mobileNewJob"
+              class="max-w-full"
+            >
+           
+              Crear Empleo
+              <span class="block max-w-0"></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+       <!--section Filters -->
+
+    <div class="filters flex w-full justify-center mt-10 space-x-2" id="filters">
+    <label for="Ubicacion" class="mb-1 font-semibold"></label>
+    <select
+      class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
+      name="filtersLocation"
+      id="filtersLocation"
+      onchange=""
+    >
+
+      <option value="">Ubicacion</option>
+      <option value="">Estados Unidos</option>
+      <option value="">Chile</option>
+      <option value="">Nueva zelanda</option>
+      <option value="">Uruguay</option>
+      <option value="">Brasil</option>
+      <option value="">España</option>
+    </select>
+
+    <label for="Seniority" class="mb-1 font-semibold"></label>
+    <select
+      class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
+      name="filtersSeniority"
+      id="filtersSeniority"
+      onchange=""
+    >
+      <option value="">Seniority</option>
+      <option value="">Senior</option>
+      <option value="">Junior</option>
+      <option value="">Trainee</option>
+    </select>
+
+
+    <label for="Location" class="mb-1 font-semibold"></label>
+    <select
+      class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
+      name="filtersLocation"
+      id="filtersLocation"
+      onchange=""
+    >
+      <option value="">Categorias</option>
+      <option value="">Infraestructura</option>
+      <option value="">Desarrollo</option>
+      <option value="">Seguridad</option>
+      <option value="">QA</option>
+    </select>
+
+
+
+    <button
+    class="px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
+    id="btnSearch"
+    type="submit"
+  >
+    Buscar
+  </button>
+
+  <button
+  class="px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
+  id="btnClear"
+  type="submit"
+>
+  Limpiar
+</button>
+    </div>
+
+      <!--section see details -->
+
+    <div class="mp:hidden  lg:p-16 py-16 px-4 flex justify-center divide-y" id="editJobForm">
+      
+      <section class="lg:max-w-4xl p-12 max-w-none w-full rounded bg-white drop-shadow-2xl">
+        
+          <h2 class="lg:text-4xl text-3xl font-bold">Detalles del Empleo</h2>
+          
+        <div class="flex flex-col mt-8">
+
+          <div class="flex flex-col md:flex-row">
+            <div>
+              <img  src="./assets/juicy-man-programmer-writing-code-and-make-web-design-on-a-pc.gif">
+            </div>
+
+            <div class="md:w-1/2 mb-1 font-bold h-auto mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none">
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptas, soluta ut accusamus laudantium reprehenderit totam ducimus beatae, laboriosam sint temporibus ea repudiandae eius nemo delectus non perferendis, veritatis a quaerat.</p>
+            </div>
+          </div>
+
+            <div class="flex flex-col justify-end md:flex items-end md:flex-row">
+              <button
+                class="md:w-50 md:mx-1.5 px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
+                id="btnEditJob"
+                type="submit"
+              >
+                Editar Empleo
+              </button>
+
+              <button
+                class="md:w-50 px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
+                id="btnDeletJob"
+                type="submit"
+              >
+                Eliminar Empleo
+              </button>
+            </div>
+        </div>
+      </section>
+    </div>
+
+     <!--section delet job -->
+
+     <div id=""
+     class="mp:hidden flex justify-center"
+   >
+      <section class=" lg:max-w-4xl py-3 w-full bg-white rounded drop-shadow-2xl  bg-red-400/[.30]"
+      >
+
+      <div class=" flex flex-wrap justify-center py-5 space-x-2">
+        <p class="mb-1 font-bold">¿Estas seguro que queres eliminar este empleo?</p>
+              
+          <!-- <div class="flex flex-col justify-end"> -->
+            <button
+            class="w-32 my-1 text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
+            type="submit"
+            id=""
+          >
+            Eliminar
+            </button>
+
+            <button
+          class=" w-32  text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
+          type="submit"
+          id=""
+        >
+          Cancelar
+            </button>
+        </div> 
+
+
+        </div>
+       </div>
+      
+
+   <!--section  edit job form-->
+
+   <div
+   class="mp:hidden  lg:p-16 py-16 px-4 flex justify-center"
+   id="editJobForm"
+  >
+   <section
+     class="lg:max-w-4xl p-12 max-w-none w-full rounded bg-white drop-shadow-2xl"
+   >
+   <h2 class="lg:text-4xl text-3xl font-bold">Editar Empleo</h2>
+     <div class="flex flex-col mt-8">
+      
+       <label for="name" class="mb-1 font-bold">Nombre del Empleo</label>
+       <input
+         type="text"
+         name="name"
+         id="name"
+         class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
+       />
+
+       <label for="description" class="mb-1 font-bold">Descripción</label>
+       <input
+         type="text"
+         name="description"
+         id="description"
+         class="h-40 mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"/>
+
+         <label for="tags" class="mb-1 font-semibold">Etiquetas</label>
+         <select
+           class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
+           name="tags"
+           id="tags"
+           onchange=""
+         >
+     
+           <option value="">Ubicacion</option>
+           <option value="">Estados Unidos</option>
+           <option value="">Chile</option>
+           <option value="">Nueva zelanda</option>
+           <option value="">Uruguay</option>
+           <option value="">Brasil</option>
+           <option value="">España</option>
+         </select>
+     
+         <label for="seniority" class="mb-1 font-semibold"></label>
+         <select
+           class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
+           name="seniority"
+           id="seniority"
+           onchange=""
+         >
+           <option value="">Seniority</option>
+           <option value="">Senior</option>
+           <option value="">Junior</option>
+           <option value="">Trainee</option>
+         </select>
+     
+     
+         <label for="categories" class="mb-1 font-semibold"></label>
+         <select
+           class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
+           name="categories"
+           id="categories"
+           onchange=""
+         >
+           <option value="">Categorias</option>
+           <option value="">Infraestructura</option>
+           <option value="">Desarrollo</option>
+           <option value="">Seguridad</option>
+           <option value="">QA</option>
+         </select>
+
+
+
+       <div class="flex justify-end mt-4">
+         <button
+           class="px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
+           type="submit"
+           id="btnEdit"
+         >
+           Editar
+         </button>
+         
+       </div>
+     </div>
+   </section>
+   </div>
+
+  <!--section Creat job form -->
+
+    <div
+      class="mp:hidden  lg:p-16 py-16 px-4 flex justify-center"
+      id="newJobForm"
+    >
+      <section
+        class="lg:max-w-4xl p-12 max-w-none w-full rounded bg-white drop-shadow-2xl"
+      >
+        <h2 class="lg:text-4xl text-3xl font-bold">Crear Empleo</h2>
+        <div class="flex flex-col mt-8">
+          <label for="name" class="mb-1 font-bold">Nombre del Empleo</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
+          />
+
+          <label for="description" class="mb-1 font-bold">Descripción</label>
+          <input
+            type="text"
+            name="description"
+            id="description"
+            class="h-40 mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"/>
+
+            <label for="Ubicacion" class="mb-1 font-semibold">Etiquetas</label>
+            <select
+              class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
+              name="filtersLocation"
+              id="filtersLocation"
+              onchange=""
+            >
+        
+              <option value="">Ubicacion</option>
+              <option value="">Estados Unidos</option>
+              <option value="">Chile</option>
+              <option value="">Nueva zelanda</option>
+              <option value="">Uruguay</option>
+              <option value="">Brasil</option>
+              <option value="">España</option>
+            </select>
+        
+            <label for="" class="mb-1 font-semibold"></label>
+            <select
+              class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
+              name="filtersLocation"
+              id="filtersLocation"
+              onchange=""
+            >
+              <option value="">Seniority</option>
+              <option value="">Senior</option>
+              <option value="">Junior</option>
+              <option value="">Trainee</option>
+            </select>
+        
+        
+            <label for="" class="mb-1 font-semibold"></label>
+            <select
+              class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
+              name="filtersLocation"
+              id="filtersLocation"
+              onchange=""
+            >
+              <option value="">Categorias</option>
+              <option value="">Infraestructura</option>
+              <option value="">Desarrollo</option>
+              <option value="">Seguridad</option>
+              <option value="">QA</option>
+            </select>
+
+
+
+          <div class="flex justify-end mt-4">
+            <button
+              class="px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
+              type="submit"
+              id="btnSend"
+            >
+              Enviar
+            </button>
+            
+          </div>
+        </div>
+      </section>
+    </div>
     
+ <!--section Creat job form -->
+
+ 
+    <!-- //posible formato de cards
+      <h1>titulo</h1>
+      <ul class="divide-y divide-gray-200">
+        <li v-for="person in people" :key="person.email" class="py-4 flex">
+          <img class="h-10 w-10 rounded-full" :src="person.image" alt="" />
+          <div class="ml-3">
+            <p class="text-sm font-medium text-gray-900">{{ person.name }}</p>
+            <p class="text-sm text-gray-500">{{ person.email }}</p>
+          </div>
+        </li>
+      </ul>
+    -->
+    <script src="js/script.js"></script>
 </body>
 </html>
