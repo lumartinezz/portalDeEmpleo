@@ -2,8 +2,8 @@
 const $ = (selector) => document.querySelector(selector)
 const $$ = (selector) => document.querySelectorAll(selector)
 
-
 /////////////////// FUNCIONES NAVEGACION ////////////////////
+
 navHome.addEventListener("click", () => {
   $("#container").classList.remove("hidden")
   $("#seeDetails").classList.add("hidden")
@@ -17,10 +17,6 @@ navNewJob.addEventListener("click", () => {
   $("#filters").classList.add("hidden")
 })
 
-
-/////////////////// FUNCIONES DOM ////////////////////
-
-
 /////////////////// FUNCION GET PARA LLAMAR A LA API ////////////////////
 
 const getJobs = () => {
@@ -32,13 +28,15 @@ const getJobs = () => {
 
 getJobs()
 
-const getJob = (id) => {
-fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs/${id}`) 
-.then(response => response.json()) //parseo la info recibida 
-.then(data => jobDetails(data))
+const getJobAsync = async (id) => {
+  const response = await fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs/${id}`)
+  const job = await response.json()
+  return job
 }
 
+
 /////////////////// FUNCION QUE GENERA LAS TARJETAS ////////////////////
+
 const generateCards = (jobs) => {
 for (const {id, name, description, location, seniority, category} of jobs){
 
@@ -64,7 +62,7 @@ for (const {id, name, description, location, seniority, category} of jobs){
             <p class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${seniority}</p>
 
             <div>
-              <button class="px-6 m-1 h-[36px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] btn-details" onclick ="getJob(${id})">
+              <button class="btn btn-detail px-6 m-1 h-[36px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d]"  data-id="${id}">
                 Ver Detalles
               </button>
             </div>
@@ -74,9 +72,18 @@ for (const {id, name, description, location, seniority, category} of jobs){
     </div>
   </div>`
 }
+
+for (const btn of $$(".btn-detail")) {
+  btn.addEventListener("click", () => {
+      const jobId = btn.getAttribute("data-id")
+      getJobAsync(jobId).then(data => jobDetails(data))
+  })
+}
+
 }
 
 /////////////////// FUNCION VER DETALLES ////////////////////
+
 const jobDetails = (job) => {
   $("#seeDetails").innerHTML += `
   
@@ -107,20 +114,17 @@ const jobDetails = (job) => {
             </div>
 
             <div class="flex flex-col justify-end md:flex items-end md:flex-row">
-              <button
-                class="md:w-50 md:mx-1.5 px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
-                data-id="${job.id}"
-                id="btnEditJob"
-                type="submit"
+              <button class="md:w-50 md:mx-1.5 px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg btn btn-edit"
+                data-id="${job.id}"  
+                
               >
                 Editar Empleo
               </button>
 
               <button
-                class="md:w-50 px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
+                class="md:w-50 px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg btn btn-delete"
                 data-id="${job.id}"
                 id="btnDeletJob"
-                type="submit"
               >
                 Eliminar Empleo
               </button>
@@ -133,23 +137,39 @@ const jobDetails = (job) => {
     $("#container").classList.add("hidden")
     $("#seeDetails").classList.remove("hidden")
     $("#filters").classList.add("hidden")
+
+
+
+    for (const btn of $$(".btn-edit")) {
+      btn.addEventListener("click", () => {
+          const jobId = btn.getAttribute("data-id")
+          $("#btnEdit").setAttribute("data-id", jobId)
+          getJobAsync(jobId).then(data => showForm(data))
+      })
+    }
+    
+}
+
+
+const showForm = (job) => {
+  $("#container").innerHTML = ""
+  $("#editJobForm").classList.remove("hidden")
+  $("#name").value = job.name
+  $("#description").value = job.description
+  $("#category").value = job.category
+  $("#location").value = job.location
+  $("#seniority").value = job.seniority
 }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+// for (const btn of $$(".btn-delete")) {
+//   btn.addEventListener("click", () => {
+//       const jobId = btn.getAttribute("data-id")
+//       deleteUser(jobId)
+//   })
+// }
 
 
 
