@@ -11,13 +11,13 @@ navHome.addEventListener("click", () => {
 })
 
 navNewJob.addEventListener("click", () => {
-  $("#newJobForm").classList.remove("hidden")
+  $("#editJobForm").classList.remove("hidden")
   $("#seeDetails").classList.add("hidden")
   $("#container").classList.add("hidden")
   $("#filters").classList.add("hidden")
 })
 
-/////////////////// FUNCION GET PARA LLAMAR A LA API ////////////////////
+/////////////////// FUNCION GET PARA GENERAR CARDS ////////////////////
 
 const getJobs = () => {
   fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs`) 
@@ -28,17 +28,52 @@ const getJobs = () => {
 
 getJobs()
 
+/////////////////// FUNCION GET PARA EDITAR ////////////////////
+
 const getJobAsync = async (id) => {
   const response = await fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs/${id}`)
   const job = await response.json()
   return job
 }
 
+/////////////////// FUNCION PUT QUE ENVIA INFO EDITADA ////////////////////
+
+const editJob = (id) => {
+  fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "Application/json",
+    },
+    body: JSON.stringify(saveJobInfo()),
+  }).finally(() => (getJobs()));
+};
+
+const saveJobInfo = () => {
+  return {
+    name: firstName.value,
+    description: description.value, 
+    category: category.value ,
+    location: location.value,
+    seniority: seniority.value
+  }
+}
+
+/////////////////// FUNCION DELET PARA ELIMINAR ////////////////////
+
+const deleteJob = (id) => {
+  fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs/${id}`, {
+    method: "DELETE",
+  }).finally(() => window.location.href = "index.html")
+}
 
 /////////////////// FUNCION QUE GENERA LAS TARJETAS ////////////////////
 
 const generateCards = (jobs) => {
+
+  $("#container").innerHTML = ""
+
 for (const {id, name, description, location, seniority, category} of jobs){
+  
 
   $("#container").innerHTML += `
 
@@ -75,6 +110,9 @@ for (const {id, name, description, location, seniority, category} of jobs){
 
 for (const btn of $$(".btn-detail")) {
   btn.addEventListener("click", () => {
+    $("#container").classList.add("hidden")
+    $("#seeDetails").classList.remove("hidden")
+    $("#filters").classList.add("hidden")
       const jobId = btn.getAttribute("data-id")
       getJobAsync(jobId).then(data => jobDetails(data))
   })
@@ -82,10 +120,12 @@ for (const btn of $$(".btn-detail")) {
 
 }
 
-/////////////////// FUNCION VER DETALLES ////////////////////
+/////////////////// FUNCION QUE GENERA CARD DETALLES////////////////////
 
 const jobDetails = (job) => {
-  $("#seeDetails").innerHTML += `
+  $("#container").innerHTML = ""
+
+  $("#seeDetails").innerHTML = `
   
       
       <section class="lg:max-w-4xl p-12 max-w-none w-full rounded bg-white drop-shadow-2xl">
@@ -134,12 +174,6 @@ const jobDetails = (job) => {
     `
 
 
-    $("#container").classList.add("hidden")
-    $("#seeDetails").classList.remove("hidden")
-    $("#filters").classList.add("hidden")
-
-
-
     for (const btn of $$(".btn-edit")) {
       btn.addEventListener("click", () => {
           const jobId = btn.getAttribute("data-id")
@@ -147,36 +181,36 @@ const jobDetails = (job) => {
           getJobAsync(jobId).then(data => showForm(data))
       })
     }
+
+    for (const btn of $$(".btn-delete")) {
+      btn.addEventListener("click", () => {
+          const jobId = btn.getAttribute("data-id")
+          deleteJob(jobId)
+      })
+    }
     
 }
 
-
+/////////////////// FUNCION QUE  PRECOPULA EL FORM ////////////////////
 const showForm = (job) => {
+  $("#seeDetails").classList.add("hidden")
   $("#container").innerHTML = ""
   $("#editJobForm").classList.remove("hidden")
-  $("#name").value = job.name
+  $("#firstName").value = job.name
   $("#description").value = job.description
   $("#category").value = job.category
   $("#location").value = job.location
   $("#seniority").value = job.seniority
 }
 
+/////////////////// EVENTO QUE ENVIA INFO EDITADA ////////////////////
 
+$("#editJobForm").addEventListener("submit", (e) => {
+  $("#container").innerHTML = ""
+  $("#editJobForm").classList.add("hidden")
+  $("#container").classList.remove("hidden")
+  e.preventDefault()
+  const id = $("#btnEdit").getAttribute("data-id")
+  editJob(id)
+})
 
-
-// for (const btn of $$(".btn-delete")) {
-//   btn.addEventListener("click", () => {
-//       const jobId = btn.getAttribute("data-id")
-//       deleteUser(jobId)
-//   })
-// }
-
-
-
-
-
-
-
-// fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs/1`,{
-//   method: "DELETE"
-// })
