@@ -2,6 +2,32 @@
 const $ = (selector) => document.querySelector(selector)
 const $$ = (selector) => document.querySelectorAll(selector)
 
+
+/////////////////// FUNCIONES NAVEGACION ////////////////////
+navHome.addEventListener("click", () => {
+  $("#container").classList.remove("hidden")
+  $("#seeDetails").classList.add("hidden")
+  $("#filters").classList.remove("hidden")
+})
+
+navNewJob.addEventListener("click", () => {
+  $("#newJobForm").classList.remove("hidden")
+  $("#seeDetails").classList.add("hidden")
+  $("#container").classList.add("hidden")
+  $("#filters").classList.add("hidden")
+})
+
+
+/////////////////// FUNCIONES DOM ////////////////////
+
+const viewDetails = (job) => {
+  $("#container").classList.add("hidden")
+  $("#seeDetails").classList.remove("hidden")
+  $("#filters").classList.add("hidden")
+}
+
+/////////////////// FUNCION GET PARA LLAMAR A LA API ////////////////////
+
 const getJobs = () => {
   fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs`) 
 .then(response => response.json()) //parseo la info recibida 
@@ -17,7 +43,7 @@ fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs/${id}`)
 .then(data => viewDetails(data))
 }
 
-
+/////////////////// FUNCION QUE GENERA LAS TARJETAS ////////////////////
 const generateCards = (jobs) => {
 for (const {id, name, description, location, seniority, category} of jobs){
 
@@ -65,10 +91,7 @@ for (const {id, name, description, location, seniority, category} of jobs){
 }
 }
 
-const viewDetails = (job) => {
-  $("#container").classList.add("hidden")
-  $("#seeDetails").classList.remove("hidden")
-}
+
 
 
 
