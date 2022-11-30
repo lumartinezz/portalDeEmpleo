@@ -165,9 +165,15 @@
 </button>
     </div>
 
+<!--section cards -->
+    <div id="container">
+    </div>
+
+
+
       <!--section see details -->
 
-    <div class="mp:hidden  lg:p-16 py-16 px-4 flex justify-center divide-y" id="editJobForm">
+    <div class="mp:hidden hidden  lg:p-16 py-16 px-4 flex justify-center divide-y" id="seeDetails">
       
       <section class="lg:max-w-4xl p-12 max-w-none w-full rounded bg-white drop-shadow-2xl">
         
@@ -209,7 +215,7 @@
      <!--section delet job -->
 
      <div id=""
-     class="mp:hidden flex justify-center"
+     class="mp:hidden hidden flex justify-center"
    >
       <section class=" lg:max-w-4xl py-3 w-full bg-white rounded drop-shadow-2xl  bg-red-400/[.30]"
       >
@@ -243,7 +249,7 @@
    <!--section  edit job form-->
 
    <div
-   class="mp:hidden  lg:p-16 py-16 px-4 flex justify-center"
+   class="mp:hidden hidden lg:p-16 py-16 px-4 flex justify-center"
    id="editJobForm"
   >
    <section
@@ -331,7 +337,7 @@
   <!--section Creat job form -->
 
     <div
-      class="mp:hidden  lg:p-16 py-16 px-4 flex justify-center"
+      class="mp:hidden hidden lg:p-16 py-16 px-4 flex justify-center"
       id="newJobForm"
     >
       <section
@@ -374,8 +380,8 @@
             <label for="" class="mb-1 font-semibold"></label>
             <select
               class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-              name="filtersLocation"
-              id="filtersLocation"
+              name="filtersSeniority"
+              id="filtersSeniority"
               onchange=""
             >
               <option value="">Seniority</option>
@@ -388,8 +394,8 @@
             <label for="" class="mb-1 font-semibold"></label>
             <select
               class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-              name="filtersLocation"
-              id="filtersLocation"
+              name="filtersCategory"
+              id="filtersCategory"
               onchange=""
             >
               <option value="">Categorias</option>
@@ -414,22 +420,7 @@
         </div>
       </section>
     </div>
-    
- <!--section Creat job form -->
 
- 
-    <!-- //posible formato de cards
-      <h1>titulo</h1>
-      <ul class="divide-y divide-gray-200">
-        <li v-for="person in people" :key="person.email" class="py-4 flex">
-          <img class="h-10 w-10 rounded-full" :src="person.image" alt="" />
-          <div class="ml-3">
-            <p class="text-sm font-medium text-gray-900">{{ person.name }}</p>
-            <p class="text-sm text-gray-500">{{ person.email }}</p>
-          </div>
-        </li>
-      </ul>
-    -->
     <script src="js/script.js"></script>
 </body>
 </html>
