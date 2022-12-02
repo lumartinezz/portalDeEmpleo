@@ -2,6 +2,8 @@
 const $ = (selector) => document.querySelector(selector)
 const $$ = (selector) => document.querySelectorAll(selector)
 
+let isEdit = false
+
 /////////////////// FUNCIONES NAVEGACION ////////////////////
 
 navHome.addEventListener("click", () => {
@@ -15,6 +17,7 @@ navNewJob.addEventListener("click", () => {
   $("#seeDetails").classList.add("hidden")
   $("#container").classList.add("hidden")
   $("#filters").classList.add("hidden")
+  isEdit = true
 })
 
 /////////////////// FUNCION GET PARA GENERAR CARDS ////////////////////
@@ -55,6 +58,7 @@ const saveJobInfo = () => {
     category: category.value ,
     location: location.value,
     seniority: seniority.value
+
   }
 }
 
@@ -65,12 +69,34 @@ const deleteJob = (id) => {
     method: "DELETE",
   }).finally(() => window.location.href = "index.html")
 }
+/////////////////// FUNCION POST PARA AGREGAR EMPLEO ////////////////////
+
+const addJob = () => {
+  fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'Application/json'
+    },
+    body: JSON.stringify(saveJob())
+  }).finally(() => window.location.href = "index.html")
+}
+
+const saveJob = () => {
+  return {
+    name: firstName.value,
+    description: $("#description").value,
+    category: $("#category").value,
+    location: $("#location").value,
+    seniority: $("#seniority").value
+  }
+}
 
 /////////////////// FUNCION QUE GENERA LAS TARJETAS ////////////////////
 
 const generateCards = (jobs) => {
+  setTimeout(() => {
 
-  $("#container").innerHTML = ""
+    $("#spinner").innerHTML = ""
 
 for (const {id, name, description, location, seniority, category} of jobs){
   
@@ -117,7 +143,7 @@ for (const btn of $$(".btn-detail")) {
       getJobAsync(jobId).then(data => jobDetails(data))
   })
 }
-
+  }, 2000)
 }
 
 /////////////////// FUNCION QUE GENERA CARD DETALLES////////////////////
@@ -176,6 +202,7 @@ const jobDetails = (job) => {
 
     for (const btn of $$(".btn-edit")) {
       btn.addEventListener("click", () => {
+        isEdit = false
           const jobId = btn.getAttribute("data-id")
           $("#btnEdit").setAttribute("data-id", jobId)
           getJobAsync(jobId).then(data => showForm(data))
@@ -184,12 +211,23 @@ const jobDetails = (job) => {
 
     for (const btn of $$(".btn-delete")) {
       btn.addEventListener("click", () => {
-          const jobId = btn.getAttribute("data-id")
-          deleteJob(jobId)
+        $("#seeDetails").classList.add("hidden")
+        $("#deleteJob").classList.remove("hidden")
       })
     }
     
+
+    for (const btn of $$(".btn-delete")) {
+   $("#btnDelete").addEventListener("click", () => {
+    const jobId = btn.getAttribute("data-id")
+    $("#btnDelete").setAttribute("data-id", jobId)
+    deleteJob(jobId)
+  })
 }
+}
+
+/////////////////// EVENTO QUE ELIMINA EL JOB
+
 
 /////////////////// FUNCION QUE  PRECOPULA EL FORM ////////////////////
 const showForm = (job) => {
@@ -206,11 +244,27 @@ const showForm = (job) => {
 /////////////////// EVENTO QUE ENVIA INFO EDITADA ////////////////////
 
 $("#editJobForm").addEventListener("submit", (e) => {
+  e.preventDefault()
+
+  if (isEdit) {
+    addJob()
+  } else {
+  const id = $("#btnEdit").getAttribute("data-id")
+  editJob(id)
+  }
+
   $("#container").innerHTML = ""
   $("#editJobForm").classList.add("hidden")
   $("#container").classList.remove("hidden")
-  e.preventDefault()
-  const id = $("#btnEdit").getAttribute("data-id")
-  editJob(id)
 })
 
+/////////////////// EVENTO QUE CANCELA DESDE EDITAR ////////////////////
+
+$("#btnCancel").addEventListener("click", () => {
+  window.location.href = "index.html"
+  $("#container").classList.remove("hidden")
+  $("#filters").classList.remove("hidden")
+  $("#deleteJob").classList.add("hidden")
+})
+
+/////////////////// FILTROS ////////////////////
