@@ -149,7 +149,12 @@ for (const btn of $$(".btn-detail")) {
 /////////////////// FUNCION QUE GENERA CARD DETALLES////////////////////
 
 const jobDetails = (job) => {
+  
   $("#container").innerHTML = ""
+
+  setTimeout(() => {
+
+    $("#spinner").innerHTML = ""
 
   $("#seeDetails").innerHTML = `
   
@@ -223,8 +228,10 @@ const jobDetails = (job) => {
     $("#btnDelete").setAttribute("data-id", jobId)
     deleteJob(jobId)
   })
-}
-}
+} 
+
+  }, 2000)
+} 
 
 /////////////////// EVENTO QUE ELIMINA EL JOB
 
