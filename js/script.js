@@ -233,8 +233,6 @@ const jobDetails = (job) => {
   }, 2000)
 } 
 
-/////////////////// EVENTO QUE ELIMINA EL JOB
-
 
 /////////////////// FUNCION QUE  PRECOPULA EL FORM ////////////////////
 const showForm = (job) => {
@@ -275,3 +273,18 @@ $("#btnCancel").addEventListener("click", () => {
 })
 
 /////////////////// FILTROS ////////////////////
+const searchLocation = (location) => {
+  fetch(`https://63853647beaa6458265b9975.mockapi.io//Jobs?location=${location}`)
+    .then(res => res.json())
+    .then(data => generateCards(data))
+}
+console.log(">>>>>>>>>>>> value input", $("#filtersLocation").value)
+
+$("#btnSearch").addEventListener("click", () =>{
+  if ($("#filtersLocation").value === "Ubicacion") {
+    generateCards(data)
+  } else {
+  $("#container").innerHTML = ""
+  searchLocation($("#filtersLocation").value)
+}
+})
