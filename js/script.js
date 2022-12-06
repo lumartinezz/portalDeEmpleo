@@ -274,19 +274,67 @@ $("#btnCancel").addEventListener("click", () => {
 
 /////////////////// FILTROS ////////////////////
 
-// cambiar por async await para tomar data en el if!!
-const searchLocation = (location) => {
-  fetch(`https://63853647beaa6458265b9975.mockapi.io//Jobs?location=${location}`)
-    .then(res => res.json())
-    .then(data => generateCards(data))
-}
+
+// const searchLocation = (location) => {
+//   fetch(`https://63853647beaa6458265b9975.mockapi.io//Jobs?location=${location}`)
+//     .then(res => res.json())
+//     .then(data => generateCards(data))
+// }
+
+// $("#btnSearch").addEventListener("click", () => {
+//     $("#container").innerHTML = ""
+//    searchLocation($("#filtersLocation").value)
+// })
 
 
-$("#btnSearch").addEventListener("click", () =>{
-  if ($("#filtersLocation").value === "Ubicacion") {
-    generateCards(data)
-  } else {
-  $("#container").innerHTML = ""
-  searchLocation($("#filtersLocation").value)
+// const searchSeniority = (seniority) => {
+//   fetch(`https://63853647beaa6458265b9975.mockapi.io//Jobs?seniority=${seniority}`)
+//     .then(res => res.json())
+//     .then(data => generateCards(data))
+// }
+
+// $("#btnSearch").addEventListener("click", () => {
+//     $("#container").innerHTML = ""
+//     searchLocation($("#filtersSeniority").value)
+// })
+
+// const searchCategory = () => {
+//   fetch(`https://63853647beaa6458265b9975.mockapi.io//Jobs?category=${category}`)
+//     .then(res => res.json())
+//     .then(data => generateCards(data))
+// }
+
+// $("#btnSearch").addEventListener("click", () => {
+//     $("#container").innerHTML = ""
+//     searchLocation($("#filtersCategory").value)
+// })
+const getJobfilter = async () => {
+  let base = filterJobs()
+  const response = await fetch(`base`)
+  const jobfiltered = await response.json()
+  return jobfiltered
 }
+
+$("#btnSearch").addEventListener("click", () => {
+  generateCards(jobfiltered)
 })
+
+const filterJobs = () => {
+
+  const filtersLocation = $("#filtersLocation").value
+  const filtersSeniority = $("#filtersSeniority").value
+  const filtersCategory = $("#filtersCategory").value
+
+const BASE_URL = `https://63853647beaa6458265b9975.mockapi.io`
+let url = `${BASE_URL}/Jobs`
+
+if (filtersLocation !== "Ubicacion"){
+  url +=`?location=${filtersLocation}`
+} else if (filtersSeniority !== "Seniority") {
+  url +=`?seniority=${filtersSeniority}`
+} else if (filtersCategory !== "Categorias") {
+  url +=`?category=${filtersCategory}`
+}
+
+console.log(">>>>>>>>> url", url)
+}
