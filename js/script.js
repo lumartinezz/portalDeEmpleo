@@ -273,12 +273,14 @@ $("#btnCancel").addEventListener("click", () => {
 })
 
 /////////////////// FILTROS ////////////////////
+
+// cambiar por async await para tomar data en el if!!
 const searchLocation = (location) => {
   fetch(`https://63853647beaa6458265b9975.mockapi.io//Jobs?location=${location}`)
     .then(res => res.json())
     .then(data => generateCards(data))
 }
-console.log(">>>>>>>>>>>> value input", $("#filtersLocation").value)
+
 
 $("#btnSearch").addEventListener("click", () =>{
   if ($("#filtersLocation").value === "Ubicacion") {
