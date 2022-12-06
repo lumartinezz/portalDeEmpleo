@@ -10,6 +10,8 @@ navHome.addEventListener("click", () => {
   $("#container").classList.remove("hidden")
   $("#seeDetails").classList.add("hidden")
   $("#filters").classList.remove("hidden")
+  generateCards()
+
 })
 
 navNewJob.addEventListener("click", () => {
@@ -94,6 +96,9 @@ const saveJob = () => {
 /////////////////// FUNCION QUE GENERA LAS TARJETAS ////////////////////
 
 const generateCards = (jobs) => {
+
+
+
   setTimeout(() => {
 
     $("#spinner").innerHTML = ""
@@ -136,7 +141,6 @@ for (const {id, name, description, location, seniority, category} of jobs){
 
 for (const btn of $$(".btn-detail")) {
   btn.addEventListener("click", () => {
-    $("#container").classList.add("hidden")
     $("#seeDetails").classList.remove("hidden")
     $("#filters").classList.add("hidden")
       const jobId = btn.getAttribute("data-id")
@@ -149,9 +153,9 @@ for (const btn of $$(".btn-detail")) {
 /////////////////// FUNCION QUE GENERA CARD DETALLES////////////////////
 
 const jobDetails = (job) => {
-  
-  $("#container").innerHTML = ""
 
+  $("#container").innerHTML = ""
+  
   setTimeout(() => {
 
     $("#spinner").innerHTML = ""
@@ -307,6 +311,13 @@ const searchCategory = (category) => {
 $("#btnSearch").addEventListener("click", () => {
     $("#container").innerHTML = ""
     searchCategory($("#filtersCategory").value)
+})
+
+/////////////////// FUNCION QUE LIMPIA  ////////////////////
+
+$("#btnClear").addEventListener("click", () => {
+  $("#container").innerHTML = ""
+  getJobs()
 })
 
 
