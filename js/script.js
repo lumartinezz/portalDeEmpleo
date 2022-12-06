@@ -321,3 +321,38 @@ $("#btnClear").addEventListener("click", () => {
 })
 
 
+/////////////// RESPONSIVE ////////////////////////
+const $navBurguer = $("#navBurguer");
+const $burguerMobile = $("#burguerMobile");
+const $crussMobile = $("#crussMobile");
+
+const $mobileNewJob = $("#mobileNewJob")
+const $mobileHome = $("#mobileHome")
+
+$("#burguerMobile").addEventListener("click", () => {
+  $navBurguer.classList.remove("hidden");
+  $crussMobile.classList.remove("hidden");
+  $burguerMobile.classList.add("hidden");
+});
+
+$("#crussMobile").addEventListener("click", () => {
+  $navBurguer.classList.add("hidden");
+  $burguerMobile.classList.remove("hidden");
+  $crussMobile.classList.add("hidden");
+});
+
+$mobileHome.addEventListener("click", () => {
+  $("#container").classList.remove("hidden")
+  $("#seeDetails").classList.add("hidden")
+  $("#filters").classList.remove("hidden")
+  generateCards()
+
+})
+
+$mobileNewJob.addEventListener("click", () => {
+  $("#editJobForm").classList.remove("hidden")
+  $("#seeDetails").classList.add("hidden")
+  $("#container").classList.add("hidden")
+  $("#filters").classList.add("hidden")
+  isEdit = true
+})

@@ -72,10 +72,10 @@
 
         <!-- section nav burguer menu-->
       
-      <div class="lg:hidden " id="navBurguer">
+      <div class="lg:hidden hidden" id="navBurguer">
         <ul class="flex flex-col bg-[#bef264] text-white">
           <li class="px-4 py-2 group hover:text-xl hover:bg-white cursor-pointer">
-            <a href="#" name="mobileHome" id="mobileHome" class="">
+            <a href="#" name="" id="mobileHome" class="">
              
               Inicio
               <span class="block max-w-0 hover:text-"></span>
@@ -99,74 +99,72 @@
     </header>
 
        <!--section Filters -->
+  <div class="">
+      <div class="flex flex-col mx-auto w-full md:flex-row md:w-[95%] md:space-x-4 md:mx-10 md:my-10 md:justify-center" id="filters">
 
-    <div class="filters flex w-full justify-center mt-10 space-x-2" id="filters">
+      <label for="Ubicacion" class="mb-1 font-semibold"></label>
+      <select
+        class="md:w-[33%] md:h-[44px] mt-4 w-[70%] h-[44px] mx-auto mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
+        name="filtersLocation"
+        id="filtersLocation"
+      >
 
-      <div class="mt:flex mt:flex-col">
+        <option value="Ubicacion">Ubicacion</option>
+        <option value="Estados Unidos">Estados Unidos</option>
+        <option value="Chile">Chile</option>
+        <option value="Nueva zelanda">Nueva zelanda</option>
+        <option value="Uruguay">Uruguay</option>
+        <option value="Brasil">Brasil</option>
+        <option value="España">España</option>
+      </select>
+
+      <label for="Seniority" class="mb-1 font-semibold"></label>
+      <select
+        class="md:w-[33%] md:h-[44px] mt-4 w-[70%] h-[44px] mx-auto mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
+      
+        id="filtersSeniority"
+      >
+        <option value="Seniority">Seniority</option>
+        <option value="Senior">Senior</option>
+        <option value="Junior">Junior</option>
+        <option value="Trainee">Trainee</option>
+      </select>
+
+
+      <label for="category" class="mb-1 font-semibold"></label>
+      <select
+        class="md:w-[33%] md:h-[44px] mt-4 w-[70%] h-[44px] mx-auto mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
+      
+        id="filtersCategory"
+      >
+        <option value="Categorias">Categorias</option>
+        <option value="Infraestructura">Infraestructura</option>
+        <option value="Desarrollo">Desarrollo</option>
+        <option value="Seguridad">Seguridad</option>
+        <option value="QA">QA</option>
+      </select>
+
 
     
-    <label for="Ubicacion" class="mb-1 font-semibold"></label>
-    <select
-      class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-      name="filtersLocation"
-      id="filtersLocation"
+      <button
+      class="md:w-[33%] md:h-[44px] mt-4 w-[70%] h-[44px] mx-auto px-6  h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
+      id="btnSearch"
+
     >
+      Buscar
+      </button>
 
-      <option value="Ubicacion">Ubicacion</option>
-      <option value="Estados Unidos">Estados Unidos</option>
-      <option value="Chile">Chile</option>
-      <option value="Nueva zelanda">Nueva zelanda</option>
-      <option value="Uruguay">Uruguay</option>
-      <option value="Brasil">Brasil</option>
-      <option value="España">España</option>
-    </select>
-
-    <label for="Seniority" class="mb-1 font-semibold"></label>
-    <select
-      class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-     
-      id="filtersSeniority"
-    >
-      <option value="Seniority">Seniority</option>
-      <option value="Senior">Senior</option>
-      <option value="Junior">Junior</option>
-      <option value="Trainee">Trainee</option>
-    </select>
-
-
-    <label for="category" class="mb-1 font-semibold"></label>
-    <select
-      class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-    
-      id="filtersCategory"
-    >
-      <option value="Categorias">Categorias</option>
-      <option value="Infraestructura">Infraestructura</option>
-      <option value="Desarrollo">Desarrollo</option>
-      <option value="Seguridad">Seguridad</option>
-      <option value="QA">QA</option>
-    </select>
-
-
-  
     <button
-    class="px-6 mx-px h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
-    id="btnSearch"
+    class="md:w-[33%] md:h-[44px] mt-4 w-[70%] h-[44px] mx-auto px-6  h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
+    id="btnClear"
 
   >
-    Buscar
-  </button>
+    Limpiar
+    </button>
 
-  <button
-  class="px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
-  id="btnClear"
-
->
-  Limpiar
-</button>
-
+      </div>
+  
   </div>
-</div>
   
 <div id="spinner"  role="status" class="flex  justify-center items-center">
   <svg class="inline mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-green-500" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -178,7 +176,7 @@
 
 
 <!--section cards -->
-    <div id="container">
+    <div class="flex flex-col " id="container">
     </div>
 
 
@@ -201,7 +199,7 @@
               
 
             <button
-            class="w-32 my-1 text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
+            class="w-32 text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
             type="submit"
             id="btnDelete"
           >
