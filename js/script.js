@@ -2,8 +2,10 @@
 const $ = (selector) => document.querySelector(selector)
 const $$ = (selector) => document.querySelectorAll(selector)
 
+let isEdit = false
 
 /////////////////// FUNCIONES NAVEGACION ////////////////////
+
 navHome.addEventListener("click", () => {
   $("#container").classList.remove("hidden")
   $("#seeDetails").classList.add("hidden")
@@ -11,17 +13,14 @@ navHome.addEventListener("click", () => {
 })
 
 navNewJob.addEventListener("click", () => {
-  $("#newJobForm").classList.remove("hidden")
+  $("#editJobForm").classList.remove("hidden")
   $("#seeDetails").classList.add("hidden")
   $("#container").classList.add("hidden")
   $("#filters").classList.add("hidden")
+  isEdit = true
 })
 
-
-/////////////////// FUNCIONES DOM ////////////////////
-
-
-/////////////////// FUNCION GET PARA LLAMAR A LA API ////////////////////
+/////////////////// FUNCION GET PARA GENERAR CARDS ////////////////////
 
 const getJobs = () => {
   fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs`) 
@@ -32,15 +31,75 @@ const getJobs = () => {
 
 getJobs()
 
-const getJob = (id) => {
-fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs/${id}`) 
-.then(response => response.json()) //parseo la info recibida 
-.then(data => jobDetails(data))
+/////////////////// FUNCION GET PARA EDITAR ////////////////////
+
+const getJobAsync = async (id) => {
+  const response = await fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs/${id}`)
+  const job = await response.json()
+  return job
+}
+
+/////////////////// FUNCION PUT QUE ENVIA INFO EDITADA ////////////////////
+
+const editJob = (id) => {
+  fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "Application/json",
+    },
+    body: JSON.stringify(saveJobInfo()),
+  }).finally(() => (getJobs()));
+};
+
+const saveJobInfo = () => {
+  return {
+    name: firstName.value,
+    description: description.value, 
+    category: category.value ,
+    location: location.value,
+    seniority: seniority.value
+
+  }
+}
+
+/////////////////// FUNCION DELET PARA ELIMINAR ////////////////////
+
+const deleteJob = (id) => {
+  fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs/${id}`, {
+    method: "DELETE",
+  }).finally(() => window.location.href = "index.html")
+}
+/////////////////// FUNCION POST PARA AGREGAR EMPLEO ////////////////////
+
+const addJob = () => {
+  fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'Application/json'
+    },
+    body: JSON.stringify(saveJob())
+  }).finally(() => window.location.href = "index.html")
+}
+
+const saveJob = () => {
+  return {
+    name: firstName.value,
+    description: $("#description").value,
+    category: $("#category").value,
+    location: $("#location").value,
+    seniority: $("#seniority").value
+  }
 }
 
 /////////////////// FUNCION QUE GENERA LAS TARJETAS ////////////////////
+
 const generateCards = (jobs) => {
+  setTimeout(() => {
+
+    $("#spinner").innerHTML = ""
+
 for (const {id, name, description, location, seniority, category} of jobs){
+  
 
   $("#container").innerHTML += `
 
@@ -64,7 +123,7 @@ for (const {id, name, description, location, seniority, category} of jobs){
             <p class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${seniority}</p>
 
             <div>
-              <button class="px-6 m-1 h-[36px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] btn-details" onclick ="getJob(${id})">
+              <button class="btn btn-detail px-6 m-1 h-[36px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d]"  data-id="${id}">
                 Ver Detalles
               </button>
             </div>
@@ -74,11 +133,30 @@ for (const {id, name, description, location, seniority, category} of jobs){
     </div>
   </div>`
 }
+
+for (const btn of $$(".btn-detail")) {
+  btn.addEventListener("click", () => {
+    $("#container").classList.add("hidden")
+    $("#seeDetails").classList.remove("hidden")
+    $("#filters").classList.add("hidden")
+      const jobId = btn.getAttribute("data-id")
+      getJobAsync(jobId).then(data => jobDetails(data))
+  })
+}
+  }, 2000)
 }
 
-/////////////////// FUNCION VER DETALLES ////////////////////
+/////////////////// FUNCION QUE GENERA CARD DETALLES////////////////////
+
 const jobDetails = (job) => {
-  $("#seeDetails").innerHTML += `
+  
+  $("#container").innerHTML = ""
+
+  setTimeout(() => {
+
+    $("#spinner").innerHTML = ""
+
+  $("#seeDetails").innerHTML = `
   
       
       <section class="lg:max-w-4xl p-12 max-w-none w-full rounded bg-white drop-shadow-2xl">
@@ -107,20 +185,17 @@ const jobDetails = (job) => {
             </div>
 
             <div class="flex flex-col justify-end md:flex items-end md:flex-row">
-              <button
-                class="md:w-50 md:mx-1.5 px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
-                data-id="${job.id}"
-                id="btnEditJob"
-                type="submit"
+              <button class="md:w-50 md:mx-1.5 px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg btn btn-edit"
+                data-id="${job.id}"  
+                
               >
                 Editar Empleo
               </button>
 
               <button
-                class="md:w-50 px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
+                class="md:w-50 px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg btn btn-delete"
                 data-id="${job.id}"
                 id="btnDeletJob"
-                type="submit"
               >
                 Eliminar Empleo
               </button>
@@ -130,33 +205,108 @@ const jobDetails = (job) => {
     `
 
 
-    $("#container").classList.add("hidden")
-    $("#seeDetails").classList.remove("hidden")
-    $("#filters").classList.add("hidden")
+    for (const btn of $$(".btn-edit")) {
+      btn.addEventListener("click", () => {
+        isEdit = false
+          const jobId = btn.getAttribute("data-id")
+          $("#btnEdit").setAttribute("data-id", jobId)
+          getJobAsync(jobId).then(data => showForm(data))
+      })
+    }
+
+    for (const btn of $$(".btn-delete")) {
+      btn.addEventListener("click", () => {
+        $("#seeDetails").classList.add("hidden")
+        $("#deleteJob").classList.remove("hidden")
+      })
+    }
+    
+
+    for (const btn of $$(".btn-delete")) {
+   $("#btnDelete").addEventListener("click", () => {
+    const jobId = btn.getAttribute("data-id")
+    $("#btnDelete").setAttribute("data-id", jobId)
+    deleteJob(jobId)
+  })
+} 
+
+  }, 2000)
+} 
+
+
+/////////////////// FUNCION QUE  PRECOPULA EL FORM ////////////////////
+const showForm = (job) => {
+  $("#seeDetails").classList.add("hidden")
+  $("#container").innerHTML = ""
+  $("#editJobForm").classList.remove("hidden")
+  $("#firstName").value = job.name
+  $("#description").value = job.description
+  $("#category").value = job.category
+  $("#location").value = job.location
+  $("#seniority").value = job.seniority
 }
 
+/////////////////// EVENTO QUE ENVIA INFO EDITADA ////////////////////
+
+$("#editJobForm").addEventListener("submit", (e) => {
+  e.preventDefault()
+
+  if (isEdit) {
+    addJob()
+  } else {
+  const id = $("#btnEdit").getAttribute("data-id")
+  editJob(id)
+  }
+
+  $("#container").innerHTML = ""
+  $("#editJobForm").classList.add("hidden")
+  $("#container").classList.remove("hidden")
+})
+
+/////////////////// EVENTO QUE CANCELA DESDE EDITAR ////////////////////
+
+$("#btnCancel").addEventListener("click", () => {
+  window.location.href = "index.html"
+  $("#container").classList.remove("hidden")
+  $("#filters").classList.remove("hidden")
+  $("#deleteJob").classList.add("hidden")
+})
+
+/////////////////// FILTROS ////////////////////
 
 
+const searchLocation = (location) => {
+  fetch(`https://63853647beaa6458265b9975.mockapi.io//Jobs?location=${location}`)
+    .then(res => res.json())
+    .then(data => generateCards(data))
+}
+
+$("#btnSearch").addEventListener("click", () => {
+    $("#container").innerHTML = ""
+   searchLocation($("#filtersLocation").value)
+})
 
 
+const searchSeniority = (seniority) => {
+  fetch(`https://63853647beaa6458265b9975.mockapi.io//Jobs?seniority=${seniority}`)
+    .then(res => res.json())
+    .then(data => generateCards(data))
+}
+
+$("#btnSearch").addEventListener("click", () => {
+    $("#container").innerHTML = ""
+    searchSeniority($("#filtersSeniority").value)
+})
+
+const searchCategory = (category) => {
+  fetch(`https://63853647beaa6458265b9975.mockapi.io//Jobs?category=${category}`)
+    .then(res => res.json())
+    .then(data => generateCards(data))
+}
+
+$("#btnSearch").addEventListener("click", () => {
+    $("#container").innerHTML = ""
+    searchCategory($("#filtersCategory").value)
+})
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// fetch(`https://63853647beaa6458265b9975.mockapi.io/Jobs/1`,{
-//   method: "DELETE"
-// })

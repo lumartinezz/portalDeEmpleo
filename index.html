@@ -110,44 +110,41 @@
       class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
       name="filtersLocation"
       id="filtersLocation"
-      onchange=""
     >
 
-      <option value="">Ubicacion</option>
-      <option value="">Estados Unidos</option>
-      <option value="">Chile</option>
-      <option value="">Nueva zelanda</option>
-      <option value="">Uruguay</option>
-      <option value="">Brasil</option>
-      <option value="">España</option>
+      <option value="Ubicacion">Ubicacion</option>
+      <option value="Estados Unidos">Estados Unidos</option>
+      <option value="Chile">Chile</option>
+      <option value="Nueva zelanda">Nueva zelanda</option>
+      <option value="Uruguay">Uruguay</option>
+      <option value="Brasil">Brasil</option>
+      <option value="España">España</option>
     </select>
 
     <label for="Seniority" class="mb-1 font-semibold"></label>
     <select
       class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-      name="filtersSeniority"
+     
       id="filtersSeniority"
-      onchange=""
     >
-      <option value="">Seniority</option>
-      <option value="">Senior</option>
-      <option value="">Junior</option>
-      <option value="">Trainee</option>
+      <option value="Seniority">Seniority</option>
+      <option value="Senior">Senior</option>
+      <option value="Junior">Junior</option>
+      <option value="Trainee">Trainee</option>
     </select>
 
 
-    <label for="Location" class="mb-1 font-semibold"></label>
+    <label for="category" class="mb-1 font-semibold"></label>
     <select
       class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-      name="filtersLocation"
-      id="filtersLocation"
-      onchange=""
+    
+      id="filtersCategory"
     >
-      <option value="">Categorias</option>
-      <option value="">Infraestructura</option>
-      <option value="">Desarrollo</option>
-      <option value="">Seguridad</option>
-      <option value="">QA</option>
+      <option value="Categorias">Categorias</option>
+      <option value="Infraestructura">Infraestructura</option>
+      <option value="Desarrollo">Desarrollo</option>
+      <option value="Seguridad">Seguridad</option>
+      <option value="QA">QA</option>
     </select>
 
 
@@ -155,7 +152,7 @@
     <button
     class="px-6 mx-px h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
     id="btnSearch"
-    type="submit"
+
   >
     Buscar
   </button>
@@ -163,7 +160,7 @@
   <button
   class="px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
   id="btnClear"
-  type="submit"
+
 >
   Limpiar
 </button>
@@ -171,6 +168,14 @@
   </div>
 </div>
   
+<div id="spinner"  role="status" class="flex  justify-center items-center">
+  <svg class="inline mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-green-500" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+      <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+  </svg>
+  <span class="sr-only">Loading...</span>
+</div>
+
 
 <!--section cards -->
     <div id="container">
@@ -178,14 +183,14 @@
 
 
 
-      <!--section see details -->
+<!--section see details -->
 
       <div class="mp:hidden hidden  lg:p-16 py-16 px-4 flex justify-center divide-y" id="seeDetails">
-        </div>
+      </div>
 
-     <!--section delet job -->
+<!--section delet job -->
 
-     <div id=""
+     <div id="deleteJob"
      class="mp:hidden hidden flex justify-center"
    >
       <section class=" lg:max-w-4xl py-3 w-full bg-white rounded drop-shadow-2xl  bg-red-400/[.30]"
@@ -194,11 +199,11 @@
       <div class=" flex flex-wrap justify-center py-5 space-x-2">
         <p class="mb-1 font-bold">¿Estas seguro que queres eliminar este empleo?</p>
               
-          <!-- <div class="flex flex-col justify-end"> -->
+
             <button
             class="w-32 my-1 text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
             type="submit"
-            id=""
+            id="btnDelete"
           >
             Eliminar
             </button>
@@ -206,34 +211,35 @@
             <button
           class=" w-32  text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
           type="submit"
-          id=""
+          id="btnCancel"
         >
           Cancelar
             </button>
         </div> 
 
 
-        </div>
+       </div>
        </div>
       
 
-   <!--section  edit job form-->
+<!--section  edit job form-->
 
-   <div
+  <form
    class="mp:hidden hidden lg:p-16 py-16 px-4 flex justify-center"
    id="editJobForm"
   >
+  
    <section
      class="lg:max-w-4xl p-12 max-w-none w-full rounded bg-white drop-shadow-2xl"
    >
-   <h2 class="lg:text-4xl text-3xl font-bold">Editar Empleo</h2>
+  
      <div class="flex flex-col mt-8">
-      
+ 
        <label for="name" class="mb-1 font-bold">Nombre del Empleo</label>
        <input
          type="text"
          name="name"
-         id="name"
+         id="firstName"
          class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
        />
 
@@ -247,46 +253,43 @@
          <label for="tags" class="mb-1 font-semibold">Etiquetas</label>
          <select
            class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-           name="tags"
-           id="tags"
-           onchange=""
+           id="location"
+          value = ""
          >
      
-           <option value="">Ubicacion</option>
-           <option value="">Estados Unidos</option>
-           <option value="">Chile</option>
-           <option value="">Nueva zelanda</option>
-           <option value="">Uruguay</option>
-           <option value="">Brasil</option>
-           <option value="">España</option>
+           <option value="Ubicacion">Ubicacion</option>
+           <option value="Estados Unidos">Estados Unidos</option>
+           <option value="Chile">Chile</option>
+           <option value="Nueva zelanda">Nueva zelanda</option>
+           <option value="Uruguay">Uruguay</option>
+           <option value="Brasil">Brasil</option>
+           <option value="España">España</option>
          </select>
      
          <label for="seniority" class="mb-1 font-semibold"></label>
          <select
            class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-           name="seniority"
            id="seniority"
-           onchange=""
+           value=""
+           
          >
-           <option value="">Seniority</option>
-           <option value="">Senior</option>
-           <option value="">Junior</option>
-           <option value="">Trainee</option>
+           <option value="Seniority">Seniority</option>
+           <option value="Senior">Senior</option>
+           <option value="Junior">Junior</option>
+           <option value="Trainee">Trainee</option>
          </select>
      
      
          <label for="categories" class="mb-1 font-semibold"></label>
-         <select
-           class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-           name="categories"
-           id="categories"
-           onchange=""
-         >
-           <option value="">Categorias</option>
-           <option value="">Infraestructura</option>
-           <option value="">Desarrollo</option>
-           <option value="">Seguridad</option>
-           <option value="">QA</option>
+         <select   class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none" 
+         id="category" 
+         value=""   >
+
+           <option value="Categorias">Categorias</option>
+           <option value="Infraestructura">Infraestructura</option>
+           <option value="Desarrollo">Desarrollo</option>
+           <option value="Seguridad">Seguridad</option>
+           <option value="QA">QA</option>
          </select>
 
 
@@ -297,100 +300,15 @@
            type="submit"
            id="btnEdit"
          >
-           Editar
+           Enviar
          </button>
          
        </div>
-     </div>
+      
+      </div>
    </section>
-   </div>
+  </form>
 
-  <!--section Creat job form -->
-
-    <div
-      class="mp:hidden hidden lg:p-16 py-16 px-4 flex justify-center"
-      id="newJobForm"
-    >
-      <section
-        class="lg:max-w-4xl p-12 max-w-none w-full rounded bg-white drop-shadow-2xl"
-      >
-        <h2 class="lg:text-4xl text-3xl font-bold">Crear Empleo</h2>
-        <div class="flex flex-col mt-8">
-          <label for="name" class="mb-1 font-bold">Nombre del Empleo</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-          />
-
-          <label for="description" class="mb-1 font-bold">Descripción</label>
-          <input
-            type="text"
-            name="description"
-            id="description"
-            class="h-40 mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"/>
-
-            <label for="Ubicacion" class="mb-1 font-semibold">Etiquetas</label>
-            <select
-              class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-              name="filtersLocation"
-              id="filtersLocation"
-              onchange=""
-            >
-        
-              <option value="">Ubicacion</option>
-              <option value="">Estados Unidos</option>
-              <option value="">Chile</option>
-              <option value="">Nueva zelanda</option>
-              <option value="">Uruguay</option>
-              <option value="">Brasil</option>
-              <option value="">España</option>
-            </select>
-        
-            <label for="" class="mb-1 font-semibold"></label>
-            <select
-              class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-              name="filtersSeniority"
-              id="filtersSeniority"
-              onchange=""
-            >
-              <option value="">Seniority</option>
-              <option value="">Senior</option>
-              <option value="">Junior</option>
-              <option value="">Trainee</option>
-            </select>
-        
-        
-            <label for="" class="mb-1 font-semibold"></label>
-            <select
-              class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-              name="filtersCategory"
-              id="filtersCategory"
-              onchange=""
-            >
-              <option value="">Categorias</option>
-              <option value="">Infraestructura</option>
-              <option value="">Desarrollo</option>
-              <option value="">Seguridad</option>
-              <option value="">QA</option>
-            </select>
-
-
-
-          <div class="flex justify-end mt-4">
-            <button
-              class="px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg"
-              type="submit"
-              id="btnSend"
-            >
-              Enviar
-            </button>
-            
-          </div>
-        </div>
-      </section>
-    </div>
 
     <script src="js/script.js"></script>
 </body>
