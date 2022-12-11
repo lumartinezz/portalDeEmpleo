@@ -10,6 +10,7 @@ navHome.addEventListener("click", () => {
   $("#container").classList.remove("hidden")
   $("#seeDetails").classList.add("hidden")
   $("#filters").classList.remove("hidden")
+  $("#editJobForm").classList.add("hidden")
   generateCards()
 
 })
@@ -97,107 +98,134 @@ const saveJob = () => {
 
 const generateCards = (jobs) => {
 
-
+  $("#spinner").classList.remove("hidden")
 
   setTimeout(() => {
 
-    $("#spinner").innerHTML = ""
+    $("#spinner").classList.add("hidden")
 
 for (const {id, name, description, location, seniority, category} of jobs){
-  
+
+  let img = "";
+
+      if (seniority === "Senior") {
+        img =          "./assets/juicy-man-programmer-writing-code-and-make-web-design-on-a-pc.gif";
+      } else if (seniority === "Junior") {
+        img =
+          "./assets/juicy-business-coach-explains-the-material-to-the-woman.gif";
+      } else if (seniority === "Trainee") {
+        img = "./assets/juicy-girl-working-at-home.gif";
+      } 
 
   $("#container").innerHTML += `
 
-    <div class="p-10">
- 
-    <div class=" lg:max-w-full lg:flex w-full md:flex justify-center">
-     
-    <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url('./assets/juicy-man-programmer-writing-code-and-make-web-design-on-a-pc.gif')">
+  <div class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+    <!--Card 1-->
+    <div class="rounded overflow-hidden shadow-lg">
+      <img class="w-full" src=${img}>
+      <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-2">${name}</div>
+        <p class="text-gray-700 text-base">
+         ${description}
+        </p>
       </div>
-
-      <div class="md:w-4/12 border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-        <div class="mb-8">
-         
-          <div class="text-gray-900 font-bold text-xl mb-2">${name}</div>
-          <p class="text-gray-700 text-base">${description}</p>
-        </div>
-        <div class="flex items-center">
-          <div class="text-sm">
-            <p class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${category}</p>
-            <p class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${location}</p>
-            <p class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${seniority}</p>
-
-            <div>
-              <button class="btn btn-detail px-6 m-1 h-[36px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d]"  data-id="${id}">
-                Ver Detalles
-              </button>
-            </div>
-          </div>
-        </div>
+      <div class="px-6 pt-4 pb-2">
+      <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${category}</p>
+      <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${location}</p>
+      <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${seniority}</p>
       </div>
+      <button class="btn btn-detail px-6 ml-6 mb-5 h-[36px] text-gray-700 bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:font-bold hover:text-lime-700"  data-id="${id}">
+      Ver Detalles
+    </button>
     </div>
-  </div>`
+    <!--Card 2-->
+    <div class="rounded overflow-hidden shadow-lg">
+    <img class="w-full" src=${img}>
+    <div class="px-6 py-4">
+      <div class="font-bold text-xl mb-2">${name}</div>
+      <p class="text-gray-700 text-base">
+       ${description}
+      </p>
+    </div>
+    <div class="px-6 pt-4 pb-2">
+    <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${category}</p>
+    <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${location}</p>
+    <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${seniority}</p>
+    </div>
+    <button class="btn btn-detail px-6 ml-6 mb-5 h-[36px] text-gray-700 bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:font-bold hover:text-lime-700"  data-id="${id}">
+    Ver Detalles
+  </button>
+  </div>
+    <!--Card 3-->
+    <div class="rounded overflow-hidden shadow-lg">
+    <img class="w-full" src=${img}>
+    <div class="px-6 py-4">
+      <div class="font-bold text-xl mb-2">${name}</div>
+      <p class="text-gray-700 text-base">
+       ${description}
+      </p>
+    </div>
+    <div class="px-6 pt-4 pb-2">
+    <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${category}</p>
+    <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${location}</p>
+    <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${seniority}</p>
+    </div>
+    <button class="btn btn-detail px-6 ml-6 mb-5 h-[36px] text-gray-700 bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:font-bold hover:text-lime-700"  data-id="${id}">
+    Ver Detalles
+  </button>
+  </div> `
 }
 
 for (const btn of $$(".btn-detail")) {
   btn.addEventListener("click", () => {
     $("#seeDetails").classList.remove("hidden")
     $("#filters").classList.add("hidden")
+    $("#container").classList.add("hidden")
+  
       const jobId = btn.getAttribute("data-id")
       getJobAsync(jobId).then(data => jobDetails(data))
-  })
-}
+  }) 
+}  
+
   }, 2000)
 }
 
 /////////////////// FUNCION QUE GENERA CARD DETALLES////////////////////
 
 const jobDetails = (job) => {
+  $("#spinner").classList.remove("hidden")
 
-  $("#container").innerHTML = ""
-  
   setTimeout(() => {
 
-    $("#spinner").innerHTML = ""
+    $("#spinner").classList.add("hidden")
 
   $("#seeDetails").innerHTML = `
-  
-      
-      <section class="lg:max-w-4xl p-12 max-w-none w-full rounded bg-white drop-shadow-2xl">
-        
-          <h2 class="lg:text-4xl text-3xl font-bold">${job.name}</h2>
-          
-        <div class="flex flex-col mt-8">
 
+      <section class="lg:max-w-4xl p-12 max-w-none w-full rounded bg-white drop-shadow-2xl">
+          <h2 class="lg:text-4xl text-3xl font-bold">${job.name}</h2>
+        <div class="flex flex-col mt-8">
           <div class="flex flex-col md:flex-row">
             <div>
               <img  src="./assets/juicy-man-programmer-writing-code-and-make-web-design-on-a-pc.gif">
             </div>
-
             <div class="md:w-1/2 mb-1 font-bold h-auto mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none">
                 <p>${job.description}</p>
             </div>
           </div>
-
           <div class="flex items-center">
           <div class="text-sm">
             <p class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${job.category}</p>
             <p class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${job.location}</p>
             <p class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${job.seniority}</p>
-
             <div>
             </div>
-
             <div class="flex flex-col justify-end md:flex items-end md:flex-row">
-              <button class="md:w-50 md:mx-1.5 px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg btn btn-edit"
-                data-id="${job.id}"  
-                
-              >
+              <button class="md:w-50 md:mx-1.5 px-6 h-[44px] text-gray-700 bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:font-bold hover:text-lime-700 btn btn-edit"
+                data-id="${job.id}">
                 Editar Empleo
               </button>
-
               <button
-                class="md:w-50 px-6 h-[44px] text-white bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:text-lg btn btn-delete"
+                class="md:w-50 px-6 h-[44px] text-gray-700 bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:font-bold hover:text-lime-700 btn btn-delete"
                 data-id="${job.id}"
                 id="btnDeletJob"
               >
@@ -207,7 +235,6 @@ const jobDetails = (job) => {
         </div>
       </section>
     `
-
 
     for (const btn of $$(".btn-edit")) {
       btn.addEventListener("click", () => {
@@ -226,17 +253,15 @@ const jobDetails = (job) => {
     }
     
 
-    for (const btn of $$(".btn-delete")) {
+  for (const btn of $$(".btn-delete")) {
    $("#btnDelete").addEventListener("click", () => {
     const jobId = btn.getAttribute("data-id")
     $("#btnDelete").setAttribute("data-id", jobId)
     deleteJob(jobId)
   })
 } 
-
-  }, 2000)
+}, 2000)
 } 
-
 
 /////////////////// FUNCION QUE  PRECOPULA EL FORM ////////////////////
 const showForm = (job) => {
@@ -251,7 +276,6 @@ const showForm = (job) => {
 }
 
 /////////////////// EVENTO QUE ENVIA INFO EDITADA ////////////////////
-
 $("#editJobForm").addEventListener("submit", (e) => {
   e.preventDefault()
 
@@ -268,7 +292,6 @@ $("#editJobForm").addEventListener("submit", (e) => {
 })
 
 /////////////////// EVENTO QUE CANCELA DESDE EDITAR ////////////////////
-
 $("#btnCancel").addEventListener("click", () => {
   window.location.href = "index.html"
   $("#container").classList.remove("hidden")
@@ -277,13 +300,23 @@ $("#btnCancel").addEventListener("click", () => {
 })
 
 /////////////////// FILTROS ////////////////////
-
-
 const searchLocation = (location) => {
+
+  $("#spinner").classList.remove("hidden")
+
+  setTimeout(() => {
+
+    $("#spinner").classList.add("hidden")
+    $("#filtersLocation").classList.add("hidden")
+    $("#filtersCategory").classList.add("hidden")
+    $("#filtersSeniority").classList.add("hidden")
+
   fetch(`https://63853647beaa6458265b9975.mockapi.io//Jobs?location=${location}`)
     .then(res => res.json())
     .then(data => generateCards(data))
+  }, 2000)
 }
+
 
 $("#btnSearch").addEventListener("click", () => {
     $("#container").innerHTML = ""
@@ -292,9 +325,20 @@ $("#btnSearch").addEventListener("click", () => {
 
 
 const searchSeniority = (seniority) => {
+
+  $("#spinner").classList.remove("hidden")
+
+  setTimeout(() => {
+
+    $("#spinner").classList.add("hidden")
+    $("#filtersLocation").classList.add("hidden")
+    $("#filtersCategory").classList.add("hidden")
+    $("#filtersSeniority").classList.add("hidden")
+
   fetch(`https://63853647beaa6458265b9975.mockapi.io//Jobs?seniority=${seniority}`)
     .then(res => res.json())
     .then(data => generateCards(data))
+  }, 2000)
 }
 
 $("#btnSearch").addEventListener("click", () => {
@@ -303,9 +347,20 @@ $("#btnSearch").addEventListener("click", () => {
 })
 
 const searchCategory = (category) => {
+  
+  $("#spinner").classList.remove("hidden")
+
+  setTimeout(() => {
+
+    $("#spinner").classList.add("hidden")
+    $("#filtersLocation").classList.add("hidden")
+    $("#filtersCategory").classList.add("hidden")
+    $("#filtersSeniority").classList.add("hidden")
+
   fetch(`https://63853647beaa6458265b9975.mockapi.io//Jobs?category=${category}`)
     .then(res => res.json())
     .then(data => generateCards(data))
+  }, 2000)
 }
 
 $("#btnSearch").addEventListener("click", () => {
@@ -316,7 +371,16 @@ $("#btnSearch").addEventListener("click", () => {
 /////////////////// FUNCION QUE LIMPIA  ////////////////////
 
 $("#btnClear").addEventListener("click", () => {
+  if ( $("#filtersCategory").value !== "Categorias" ||  $("#filtersLocation").value !== "Ubicacion" ||  $("#filtersSeniority").value !== "Seniority") {
+    $("#filtersCategory").value = "Categorias"
+    $("#filtersLocation").value = "Ubicacion"
+    $("#filtersSeniority").value = "Seniority"
+  }
+
   $("#container").innerHTML = ""
+  $("#filtersLocation").classList.remove("hidden")
+  $("#filtersCategory").classList.remove("hidden")
+  $("#filtersSeniority").classList.remove("hidden")
   getJobs()
 })
 
@@ -345,6 +409,7 @@ $mobileHome.addEventListener("click", () => {
   $("#container").classList.remove("hidden")
   $("#seeDetails").classList.add("hidden")
   $("#filters").classList.remove("hidden")
+  $("#editJobForm").classList.add("hidden")
   generateCards()
 
 })
