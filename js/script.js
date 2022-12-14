@@ -262,10 +262,11 @@ $("#editJobForm").addEventListener("submit", (e) => {
   const id = $("#btnEdit").getAttribute("data-id")
   editJob(id)
   }
-
+  
   $("#container").innerHTML = ""
   $("#editJobForm").classList.add("hidden")
   $("#container").classList.remove("hidden")
+  $("#filters").classList.remove("hidden")
 })
 
 /////////////////// EVENTO QUE CANCELA DESDE EDITAR ////////////////////
