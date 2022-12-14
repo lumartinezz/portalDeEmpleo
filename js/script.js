@@ -263,7 +263,7 @@ $("#editJobForm").addEventListener("submit", (e) => {
   editJob(id)
   }
   
-  $("#container").innerHTML = ""
+  
   $("#editJobForm").classList.add("hidden")
   $("#container").classList.remove("hidden")
   $("#filters").classList.remove("hidden")
