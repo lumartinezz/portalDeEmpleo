@@ -95,17 +95,7 @@ const saveJob = () => {
 }
 
 /////////////////// FUNCION QUE GENERA LAS TARJETAS ////////////////////
-
-const generateCards = (jobs) => {
-
-  $("#spinner").classList.remove("hidden")
-
-  setTimeout(() => {
-
-    $("#spinner").classList.add("hidden")
-
-for (const {id, name, description, location, seniority, category} of jobs){
-
+const generateCard = ({name, description,category, location, seniority, id}) => {
   let img = "";
 
       if (seniority === "Senior") {
@@ -117,64 +107,51 @@ for (const {id, name, description, location, seniority, category} of jobs){
         img = "./assets/juicy-girl-working-at-home.gif";
       } 
 
-  $("#container").innerHTML += `
+      return   `
+      <div class="rounded overflow-hidden shadow-lg">
+        <img class="w-full" src=${img}>
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl mb-2">${name}</div>
+          <p class="text-gray-700 text-base">
+           ${description}
+          </p>
+        </div>
+        <div class="px-6 pt-4 pb-2">
+        <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${category}</p>
+        <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${location}</p>
+        <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${seniority}</p>
+        </div>
+        <button class="btn btn-detail px-6 ml-6 mb-5 h-[36px] text-gray-700 bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:font-bold hover:text-lime-700"  data-id="${id}">
+        Ver Detalles
+      </button>
+      </div>`
 
-  <div class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-    <!--Card 1-->
-    <div class="rounded overflow-hidden shadow-lg">
-      <img class="w-full" src=${img}>
-      <div class="px-6 py-4">
-        <div class="font-bold text-xl mb-2">${name}</div>
-        <p class="text-gray-700 text-base">
-         ${description}
-        </p>
-      </div>
-      <div class="px-6 pt-4 pb-2">
-      <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${category}</p>
-      <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${location}</p>
-      <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${seniority}</p>
-      </div>
-      <button class="btn btn-detail px-6 ml-6 mb-5 h-[36px] text-gray-700 bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:font-bold hover:text-lime-700"  data-id="${id}">
-      Ver Detalles
-    </button>
-    </div>
-    <!--Card 2-->
-    <div class="rounded overflow-hidden shadow-lg">
-    <img class="w-full" src=${img}>
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">${name}</div>
-      <p class="text-gray-700 text-base">
-       ${description}
-      </p>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-    <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${category}</p>
-    <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${location}</p>
-    <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${seniority}</p>
-    </div>
-    <button class="btn btn-detail px-6 ml-6 mb-5 h-[36px] text-gray-700 bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:font-bold hover:text-lime-700"  data-id="${id}">
-    Ver Detalles
-  </button>
-  </div>
-    <!--Card 3-->
-    <div class="rounded overflow-hidden shadow-lg">
-    <img class="w-full" src=${img}>
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">${name}</div>
-      <p class="text-gray-700 text-base">
-       ${description}
-      </p>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-    <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${category}</p>
-    <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${location}</p>
-    <p class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-lime-700 mr-2 mb-2">${seniority}</p>
-    </div>
-    <button class="btn btn-detail px-6 ml-6 mb-5 h-[36px] text-gray-700 bg-[#d4d4d8] rounded hover:bg-[#d9f99d] hover:font-bold hover:text-lime-700"  data-id="${id}">
-    Ver Detalles
-  </button>
-  </div> `
 }
+const generateCards = (jobs) => {
+
+  $("#spinner").classList.remove("hidden")
+
+  setTimeout(() => {
+
+    $("#spinner").classList.add("hidden")
+
+
+    for (let i = 0; i < jobs.length; i= i + 3) {
+      const job1 = jobs[i];
+      const job2 = jobs[i+1];
+      const job3 = jobs[i+2];
+
+      $("#container").innerHTML += `
+
+      <div class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+      <!--Card 1-->
+      ${job1 ? generateCard(job1): ''}
+      <!--Card 2-->
+      ${job2 ? generateCard(job2): ''}
+      <!--Card 3-->
+      ${job3 ? generateCard(job3): ''}
+      </div> `
+    }
 
 for (const btn of $$(".btn-detail")) {
   btn.addEventListener("click", () => {
